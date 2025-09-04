@@ -11,8 +11,8 @@ export interface UserDocument extends User, Document {
   timestamps: true,
   toJSON: {
     virtuals: true,
-    transform: (_, ret) => {
-      ret.id = ret._id;
+      transform: (_: any, ret: Partial<{ _id: unknown; __v: number; id: string }>) => {   // Modificacion para corregir error de id
+      ret.id = ret._id as string; // Modificacion para corregir error de id
       delete ret._id;
       delete ret.__v;
       return ret;
